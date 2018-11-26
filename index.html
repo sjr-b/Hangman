@@ -7,11 +7,33 @@
     <link rel = "stylesheet" href = "style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
-<body>
-<h2>Hangman</h2>
+<body onload = "startGame()">
+<h2 class = "w3-panel w3-sand w3-border w3-topbar w3-leftbar w3-bottombar w3-rightbar w3-border-blue-gray">Hangman</h2>
 <br>
-<div class = "block">
-    blah de blah de blah
+<div class = "w3-panel w3-sand w3-border w3-topbar w3-leftbar w3-bottombar w3-rightbar w3-border-blue-gray" >
+    <br>
+    <div class = "w3-border w3-topbar w3-leftbar w3-bottombar w3-rightbar w3-border-blue-gray">
+        <h4>Word</h4>
+        <p id = "word"></p>
+    </div>
+    <br>
+    <div class = "w3-border w3-topbar w3-leftbar w3-bottombar w3-rightbar w3-border-blue-gray">
+        <h4>Guess A Letter</h4>
+        <input type = "text" class = "w3-round w3-border w3-border-blue-gray" value = "" id = "letter"><input type = "button" class = "w3-button w3-small w3-round w3-blue-gray" onclick = "" id = "button" value = "Guess Your Letter">
+        <br>
+        <br>
+    </div>
+    <br>
+    <div class = "w3-border w3-topbar w3-leftbar w3-bottombar w3-rightbar w3-border-blue-gray">
+        <h4>Number of Guesses Remaining</h4>
+        <p id = "guessNumber"></p>
+    </div>
+    <br>
+    <div class = "w3-border w3-topbar w3-leftbar w3-bottombar w3-rightbar w3-border-blue-gray">
+        <h4>Guessed Letters</h4>
+        <p id = "guessedLetters"></p>
+    </div>
+    <br>
 </div>
 </body>
 </html>
