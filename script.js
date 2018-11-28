@@ -24,7 +24,7 @@ function startGame(){
 // check to see if the user has won or lost yet.
 function guessLetter(){
     var letter = document.getElementById("letter").value;
-    document.getElementById("letter").disabled = true;
+    document.getElementById("letter").remove(letter); // CHECK: does this actually work?
     guessedLetters.push(letter);
     document.getElementById("word").innerHTML = printWord();
 
