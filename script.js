@@ -24,12 +24,11 @@ function startGame(){
 // check to see if the user has won or lost yet.
 function guessLetter(){
     var letter = document.getElementById("letter").value;
-    document.getElementById("letter").remove(letter); // CHECK: does this actually work?
+    var letterPlacement = matchValueToPosition(letter);
+    document.getElementById("letter").options[letterPlacement].disabled = true;
     guessedLetters.push(letter);
+    document.getElementById("guessedLetters").innerHTML = guessedLetters;
     document.getElementById("word").innerHTML = printWord();
-
-    // this just resets the letter input
-    document.getElementById("letter").value = "";
 }
 
 // Compare word to guessedLetters using guessedLetters.indexOf(letter in word) to
@@ -50,4 +49,13 @@ function printWord(){
         }
     }
     return wordProgress;
+}
+
+function matchValueToPosition(letter){
+    var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    for (var b = 0; b < 26; b++){
+        if (letter == alphabet[b]){
+            return b;
+        }
+    }
 }
