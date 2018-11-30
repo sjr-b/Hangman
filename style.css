@@ -5,6 +5,11 @@ body {
     margin-right: auto;
 }
 
-.select {
-    width: 200px;
+select {
+    width: 50px;
+    text-align: center;
+}
+
+#word {
+    letter-spacing: 5px;
 }

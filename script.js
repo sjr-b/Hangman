@@ -6,7 +6,7 @@ words - array
 guesses - number
 guessedLetters - array
 */
-var words = ["apple", "pear", "orange", "lemon"];
+var words = ["a", "ab"];
 var word = words[Math.floor(Math.random() * words.length)]
 var guesses = 0;
 var guessedLetters = [];
@@ -24,8 +24,7 @@ function startGame(){
 // check to see if the user has won or lost yet.
 function guessLetter(){
     var letter = document.getElementById("letter").value;
-    var letterPlacement = matchValueToPosition(letter);
-    document.getElementById("letter").options[letterPlacement].disabled = true;
+    document.getElementById("letter").options[matchValueToPosition(letter)].disabled = true;
     guessedLetters.push(letter);
     document.getElementById("guessedLetters").innerHTML = guessedLetters;
     document.getElementById("word").innerHTML = printWord();
@@ -37,15 +36,17 @@ function printWord(){
     var wordProgress = "";
     if (guessedLetters.length != 0){
         for (var a = 0; a < word.length; a++){
-            if (word.indexOf(guessedLetters[a]) != -1){
-                wordProgress += guessedLetters[a] + " ";
-            } else {
-                wordProgress += "_ ";
+            for (var c = 0; c < guessedLetters.length; c++){
+                if (guessedLetters[c] == word[a]){
+                    wordProgress += guessedLetters[c];
+                } else {
+                    wordProgress += "_";
+                }
             }
         }
     } else {
         for (var b = 0; b < word.length; b++){
-            wordProgress += "_ ";
+            wordProgress += "_";
         }
     }
     return wordProgress;
