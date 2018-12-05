@@ -1,15 +1,7 @@
-/*
-
-Global variables (variables that are declared outside of a function):
-word - string (according to Gabe when it is selecting every time?)
-words - array
-guesses - number
-guessedLetters - array
-*/
-var defaultWord = ["ab", "abc", "abcd"];
-var bhs = ["albinson", "henri", "schweng", "zapata", "aperribay", "quiroz", "heffner", "wray", "maaze", "tobias", "becker", "bissell", "barcelos", "halpern"];
-var langEasy= [];
-var langHard = [];
+var defaultWord = ["aba", "abcd"];
+var bhs = ["albinson", "henri", "schweng", "zapata", "aperribay", "quiroz", "heffner", "wray", "maaze", "tobias", "becker", "bissell", "barcelos", "halpern", "austera",];
+var langEasy= ["english", "spanish", "hindi", "mandarin", "arabic", "swahili", "cherokee"];
+var langHard = ["piraha", "guguyimidjir", "wolof", "azerbaijani", "basque", "occitan", "inupiaq"];
 var word = defaultWord[Math.floor(Math.random() * defaultWord.length)];
 var guesses = word.length - 1;
 var guessedLetters = [];
@@ -29,16 +21,16 @@ function guessLetter(){
     document.getElementById("letter").options[matchValueToPosition(letter)].disabled = true;
     guessedLetters.push(letter);
     document.getElementById("guessedLetters").innerHTML = guessedLetters;
-    var result = printWord()
+    var result = printWord();
     document.getElementById("word").innerHTML = result;
     if (result == word){
         alert("Congratulations");
     }
     document.getElementById("guessNumber").innerHTML = guesses;
     if (guesses == 0){
-        alert("You have lost!");
-        document.getElementById("letter").disabled = true;
+        alert("You have lost.");
     }
+
 }
 
 // Compare word to guessedLetters using guessedLetters.indexOf(letter in word) to
@@ -57,9 +49,9 @@ function printWord(){
             }
             if (wordProgress.length - 1 != a){
                 wordProgress += "_";
+                guesses--;
             }
         }
-        guesses--;
     } else {
         for (var b = 0; b < word.length; b++){
             wordProgress += "_";
@@ -81,5 +73,25 @@ function matchValueToPosition(letter){
 // This function applies the student's choice to change what the word is (so it's not the default).
 function applySelection(){
     var category = document.getElementById("categories").value;
-    word = category[Math.floor(Math.random() * category.length)];
+    if (category == defaultWord){
+        word = defaultWord[Math.floor(Math.random() * defaultWord.length)];
+        guesses = word.length - 1;
+    } else if (category == bhs){
+        word = bhs[Math.floor(Math.random() * bhs.length)];
+        guesses = word.length - 1;
+    } else if (category == langEasy){
+        word = langEasy[Math.floor(Math.random() * langEasy.length)];
+        guesses = word.length - 1;
+    } else {
+        word = langHard[Math.floor(Math.random() * langHard.length)];
+        guesses = word.length - 1;
+    }
+    document.getElementById("guessNumber").innerHTML = guesses;
+    document.getElementById("word").innerHTML = printWord();
+
+}
+
+// This function is gives the user the correct answer.
+function revealWord(){
+
 }
