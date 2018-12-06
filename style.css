@@ -13,3 +13,9 @@ select {
 #word {
     letter-spacing: 5px;
 }
+
+#reveal, #revealed {
+    position: absolute;
+    top: 213px;
+    right: 33px;
+}

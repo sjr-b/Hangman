@@ -1,14 +1,12 @@
 var defaultWord = ["aba", "abcd"];
 var bhs = ["albinson", "henri", "schweng", "zapata", "aperribay", "quiroz", "heffner", "wray", "maaze", "tobias", "becker", "bissell", "barcelos", "halpern", "austera",];
 var langEasy= ["english", "spanish", "hindi", "mandarin", "arabic", "swahili", "cherokee"];
-var langHard = ["piraha", "guguyimidjir", "wolof", "azerbaijani", "basque", "occitan", "inupiaq"];
+var langHard = ["piraha", "guguyimidjir", "wolof", "azerbaijani", "basque", "occitan", "inupiaq", "ainu"];
 var word = defaultWord[Math.floor(Math.random() * defaultWord.length)];
 var guesses = word.length - 1;
 var guessedLetters = [];
 
-// Reset the board, clear out any traces of the last round from guessedLetters
-// Choose a word - this code will grab  a random element from your words array for you:
-// var rand = myArray[Math.floor(Math.random() * myArray.length)];
+// This
 function startGame(){
     document.getElementById("guessNumber").innerHTML = guesses;
     document.getElementById("word").innerHTML = printWord();
@@ -24,11 +22,13 @@ function guessLetter(){
     var result = printWord();
     document.getElementById("word").innerHTML = result;
     if (result == word){
-        alert("Congratulations");
+        alert("Congratulations, you have won! The game is now going to reset.");
+        applySelection()
     }
     document.getElementById("guessNumber").innerHTML = guesses;
     if (guesses == 0){
-        alert("You have lost.");
+        alert("You have lost. The word was " + word + ". The game will now restart.");
+        applySelection()
     }
 
 }
@@ -49,8 +49,10 @@ function printWord(){
             }
             if (wordProgress.length - 1 != a){
                 wordProgress += "_";
-                guesses--;
             }
+        }
+        if (document.getElementById("word").innerHTML == wordProgress){
+            guesses--;
         }
     } else {
         for (var b = 0; b < word.length; b++){
@@ -73,25 +75,26 @@ function matchValueToPosition(letter){
 // This function applies the student's choice to change what the word is (so it's not the default).
 function applySelection(){
     var category = document.getElementById("categories").value;
-    if (category == defaultWord){
+    if (category == "defaultWord"){
         word = defaultWord[Math.floor(Math.random() * defaultWord.length)];
         guesses = word.length - 1;
-    } else if (category == bhs){
+    } else if (category == "bhs"){
         word = bhs[Math.floor(Math.random() * bhs.length)];
         guesses = word.length - 1;
-    } else if (category == langEasy){
+    } else if (category == "langEasy"){
         word = langEasy[Math.floor(Math.random() * langEasy.length)];
         guesses = word.length - 1;
     } else {
         word = langHard[Math.floor(Math.random() * langHard.length)];
         guesses = word.length - 1;
     }
-    document.getElementById("guessNumber").innerHTML = guesses;
-    document.getElementById("word").innerHTML = printWord();
-
+    guessedLetters = [];
+    startGame();
+    document.getElementById("guessedLetters").innerHTML = guessedLetters;
 }
 
 // This function is gives the user the correct answer.
 function revealWord(){
-
+    alert("The word was " + word + ". The game will now restart.");
+    startGame();
 }
