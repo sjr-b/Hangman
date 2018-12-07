@@ -1,12 +1,13 @@
-var defaultWord = ["aba", "abcd"];
+var hangmanImages = ["https://upload.wikimedia.org/wikipedia/commons/7/70/Hangman-2.png", "https://upload.wikimedia.org/wikipedia/commons/9/97/Hangman-3.png", "https://upload.wikimedia.org/wikipedia/commons/2/27/Hangman-4.png", "https://upload.wikimedia.org/wikipedia/commons/6/6b/Hangman-5.png", "https://upload.wikimedia.org/wikipedia/commons/d/d6/Hangman-6.png"];
+var defaultWord = ["pear", "apple"/*, "strawberry", "durian", "orange", "starfruit"*/];
 var bhs = ["albinson", "henri", "schweng", "zapata", "aperribay", "quiroz", "heffner", "wray", "maaze", "tobias", "becker", "bissell", "barcelos", "halpern", "austera",];
 var langEasy= ["english", "spanish", "hindi", "mandarin", "arabic", "swahili", "cherokee"];
-var langHard = ["piraha", "guguyimidjir", "wolof", "azerbaijani", "basque", "occitan", "inupiaq", "ainu"];
+var langHard = ["aymara", "guguyimidjir", "wolof", "azerbaijani", "basque", "occitan", "inupiaq", "ainu", "liki"];
 var word = defaultWord[Math.floor(Math.random() * defaultWord.length)];
-var guesses = word.length - 1;
+var guesses = guessNumber();
 var guessedLetters = [];
 
-// This
+// This is the starting function.
 function startGame(){
     document.getElementById("guessNumber").innerHTML = guesses;
     document.getElementById("word").innerHTML = printWord();
@@ -23,14 +24,16 @@ function guessLetter(){
     document.getElementById("word").innerHTML = result;
     if (result == word){
         alert("Congratulations, you have won! The game is now going to reset.");
-        applySelection()
+        applySelection();
     }
     document.getElementById("guessNumber").innerHTML = guesses;
     if (guesses == 0){
         alert("You have lost. The word was " + word + ". The game will now restart.");
-        applySelection()
+        applySelection();
     }
-
+    var picture = document.createElement("img");
+    picture.setAttribute("src", giveImage());
+    document.getElementById("image").appendChild(picture);
 }
 
 // Compare word to guessedLetters using guessedLetters.indexOf(letter in word) to
@@ -75,18 +78,22 @@ function matchValueToPosition(letter){
 // This function applies the student's choice to change what the word is (so it's not the default).
 function applySelection(){
     var category = document.getElementById("categories").value;
-    if (category == "defaultWord"){
-        word = defaultWord[Math.floor(Math.random() * defaultWord.length)];
-        guesses = word.length - 1;
-    } else if (category == "bhs"){
+    if (category == "bhs"){
         word = bhs[Math.floor(Math.random() * bhs.length)];
-        guesses = word.length - 1;
+        guesses = guessNumber();
     } else if (category == "langEasy"){
         word = langEasy[Math.floor(Math.random() * langEasy.length)];
-        guesses = word.length - 1;
-    } else {
+        guesses = guessNumber();
+    } else if (category == "langHard"){
         word = langHard[Math.floor(Math.random() * langHard.length)];
-        guesses = word.length - 1;
+        guesses = guessNumber();
+    } else {
+        word = defaultWord[Math.floor(Math.random() * defaultWord.length)];
+        guesses = guessNumber();
+    }
+    for (var a = 0; a < 26; a++){
+        document.getElementById("letter").options[a].disabled = false;
+        document.getElementById("letter").options[a].selected = false;
     }
     guessedLetters = [];
     startGame();
@@ -96,5 +103,26 @@ function applySelection(){
 // This function is gives the user the correct answer.
 function revealWord(){
     alert("The word was " + word + ". The game will now restart.");
-    startGame();
+    applySelection();
+}
+
+// This function determines the number of possible guesses.
+function guessNumber(){
+    if (word.length >= 6){
+        return 6;
+    } else if (2 < word.length - 1 && word.length - 1 <= 4){
+        return 4;
+    } else {
+        return 2;
+    }
+}
+
+// This function puts images into the guess box to indicate the number of guesses left.
+function giveImage(){
+    var defaultGuess = guessNumber();
+    if (guesses != defaultGuess){ // this way there is only an image if there have been any wrong guesses.
+        if (guesses == 5){
+            return hangmanImages[0];
+        }
+    }
 }
