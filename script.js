@@ -1,8 +1,8 @@
-var hangmanImages = ["https://upload.wikimedia.org/wikipedia/commons/8/8b/Hangman-0.png", "https://upload.wikimedia.org/wikipedia/commons/7/70/Hangman-2.png", "https://upload.wikimedia.org/wikipedia/commons/9/97/Hangman-3.png", "https://upload.wikimedia.org/wikipedia/commons/2/27/Hangman-4.png", "https://upload.wikimedia.org/wikipedia/commons/6/6b/Hangman-5.png", "https://upload.wikimedia.org/wikipedia/commons/d/d6/Hangman-6.png"];
+var hangmanImages = ["https://upload.wikimedia.org/wikipedia/commons/8/8b/Hangman-0.png", "https://upload.wikimedia.org/wikipedia/commons/7/70/Hangman-2.png", "https://upload.wikimedia.org/wikipedia/commons/9/97/Hangman-3.png", "https://upload.wikimedia.org/wikipedia/commons/2/27/Hangman-4.png", "https://upload.wikimedia.org/wikipedia/commons/6/6b/Hangman-5.png", "https://upload.wikimedia.org/wikipedia/commons/d/d6/Hangman-6.png", "http://images6.fanpop.com/image/photos/35500000/-The-Drunk-Giraffe-Dance-amy-pond-35527721-245-170.gif"];
 var defaultWord = ["pear", "apple", "strawberry", "durian", "orange", "starfruit"];
 var bhs = ["albinson", "henri", "schweng", "zapata", "aperribay", "quiroz", "heffner", "wray", "maaze", "tobias", "becker", "bissell", "barcelos", "halpern", "austera",];
 var langEasy= ["english", "spanish", "hindi", "mandarin", "arabic", "swahili", "cherokee"];
-var langHard = ["aymara", "guguyimidjir", "wolof", "azerbaijani", "basque", "occitan", "inupiaq", "ainu", "liki"];
+var langHard = ["aymara", "guguyimidjir", "wolof", "azerbaijani", "basque", "occitan", "inupiaq", "ainu", "liki", "nahuatl", "kyrgyz"];
 var word = defaultWord[Math.floor(Math.random() * defaultWord.length)];
 var guesses = guessNumber();
 var guessedLetters = [];
@@ -29,11 +29,6 @@ function guessLetter(){
     if (result == word){
         alert("Congratulations, you have won! You may now choose to either bask in your victory by looking at this page, or restart the game and try again.");
         document.getElementById("endGame").style.display = "inline";
-        document.getElementById("img").innerHTML = "";
-        var victory = document.createElement("img");
-        victory.setAttribute("src", "http://replygif.net/i/288.gif");
-        victory.setAttribute("width", "200px");
-        document.getElementById("img").appendChild(victory);
     }
     document.getElementById("guessNumber").innerHTML = guesses;
     if (guesses == 0){
@@ -123,7 +118,7 @@ function revealWord(){
 // This function determines the number of possible guesses.
 function guessNumber(){
     if (word.length >= 6){
-        return 6;
+        return 5;
     } else if (2 < word.length - 1 && word.length - 1 <= 4){
         return 4;
     } else {
@@ -133,9 +128,7 @@ function guessNumber(){
 
 // This function puts images into the guess box to indicate the number of guesses left.
 function giveImage(){
-    if (guesses == 6){
-        return hangmanImages[6];
-    } else if (guesses == 5){
+    if (guesses == guessNumber()){
         return hangmanImages[0];
     } else if (guesses == 4){
         return hangmanImages[1];
