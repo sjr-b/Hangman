@@ -1,8 +1,8 @@
-var hangmanImages = ["https://upload.wikimedia.org/wikipedia/commons/8/8b/Hangman-0.png", "https://upload.wikimedia.org/wikipedia/commons/7/70/Hangman-2.png", "https://upload.wikimedia.org/wikipedia/commons/9/97/Hangman-3.png", "https://upload.wikimedia.org/wikipedia/commons/2/27/Hangman-4.png", "https://upload.wikimedia.org/wikipedia/commons/6/6b/Hangman-5.png", "https://upload.wikimedia.org/wikipedia/commons/d/d6/Hangman-6.png", "http://images6.fanpop.com/image/photos/35500000/-The-Drunk-Giraffe-Dance-amy-pond-35527721-245-170.gif"];
+var hangmanImages = ["https://upload.wikimedia.org/wikipedia/commons/8/8b/Hangman-0.png", "https://upload.wikimedia.org/wikipedia/commons/7/70/Hangman-2.png", "https://upload.wikimedia.org/wikipedia/commons/9/97/Hangman-3.png", "https://upload.wikimedia.org/wikipedia/commons/2/27/Hangman-4.png", "https://upload.wikimedia.org/wikipedia/commons/6/6b/Hangman-5.png", "https://upload.wikimedia.org/wikipedia/commons/d/d6/Hangman-6.png", "http://replygif.net/i/288.gif"];
 var defaultWord = ["pear", "apple", "strawberry", "durian", "orange", "starfruit"];
-var bhs = ["albinson", "henri", "schweng", "zapata", "aperribay", "quiroz", "heffner", "wray", "maaze", "tobias", "becker", "bissell", "barcelos", "halpern", "austera",];
-var langEasy= ["english", "spanish", "hindi", "mandarin", "arabic", "swahili", "cherokee"];
-var langHard = ["aymara", "guguyimidjir", "wolof", "azerbaijani", "basque", "occitan", "inupiaq", "ainu", "liki", "nahuatl", "kyrgyz"];
+var bhs = ["albinson", "henri", "schweng", "zapata", "aperribay", "quiroz", "heffner", "wray", "maaze", "tobias", "becker", "bissell", "barcelos", "halpern", "austera", "rodrigues", "rodriguez", "bau"];
+var langEasy= ["english", "spanish", "hindi", "mandarin", "arabic", "swahili", "cherokee", "french", "japanese", "korean"];
+var langHard = ["aymara", "guguyimidjir", "wolof", "azerbaijani", "basque", "occitan", "inupiaq", "ainu", "liki", "nahuatl", "kyrgyz", "gagauz", "manx", "ossetian", "alutiiq", "somali", "sauraseni", "tigrinya", "lushootseed"]; // Dalmatian would be here, but it is now extinct (so instead I am "honoring" it here, I suppose). So would Piraha, but since it is written with a tilde over the last a, I decided to exclude it. Both will be missed.
 var word = defaultWord[Math.floor(Math.random() * defaultWord.length)];
 var guesses = guessNumber();
 var guessedLetters = [];
@@ -29,11 +29,13 @@ function guessLetter(){
     if (result == word){
         alert("Congratulations, you have won! You may now choose to either bask in your victory by looking at this page, or restart the game and try again.");
         document.getElementById("endGame").style.display = "inline";
+        document.getElementById("reveal").style.display = "none";
     }
     document.getElementById("guessNumber").innerHTML = guesses;
     if (guesses == 0){
         alert("You have lost. The word was " + word + ". You can play another round if you want. Better luck next time!");
         document.getElementById("endGame").style.display = "inline";
+        document.getElementById("reveal").style.display = "none";
     }
     // This inputs the appropriate picture.
     document.getElementById("image").innerHTML = "";
@@ -43,7 +45,7 @@ function guessLetter(){
     document.getElementById("image").appendChild(picture);
 }
 
-// This function creates the updated word in progress.
+// This function creates the updated word in progress, as well as the number of guesses the user has left..
 function printWord(){
     var wordProgress = "";
     if (guessedLetters.length != 0){ // this line checks to see if the user has inputted something or if the game has just begun
@@ -128,7 +130,9 @@ function guessNumber(){
 
 // This function puts images into the guess box to indicate the number of guesses left.
 function giveImage(){
-    if (guesses == guessNumber()){
+    if (document.getElementById("endGame").style.display == "inline"){
+        return hangmanImages[6];
+    } else if (guesses == guessNumber()){
         return hangmanImages[0];
     } else if (guesses == 4){
         return hangmanImages[1];
