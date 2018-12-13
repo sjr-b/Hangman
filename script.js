@@ -1,8 +1,8 @@
 var hangmanImages = ["https://upload.wikimedia.org/wikipedia/commons/8/8b/Hangman-0.png", "https://upload.wikimedia.org/wikipedia/commons/7/70/Hangman-2.png", "https://upload.wikimedia.org/wikipedia/commons/9/97/Hangman-3.png", "https://upload.wikimedia.org/wikipedia/commons/2/27/Hangman-4.png", "https://upload.wikimedia.org/wikipedia/commons/6/6b/Hangman-5.png", "https://upload.wikimedia.org/wikipedia/commons/d/d6/Hangman-6.png", "http://replygif.net/i/288.gif"];
-var defaultWord = ["pear", "apple", "strawberry", "durian", "orange", "starfruit"];
+var defaultWord = ["pear", "apple", "strawberry", "durian", "orange", "starfruit", "lemon", "grapefruit", "kiwi", "cherry", "appricot", "banana", "persimmon", "plum", "peach", "mango"];
 var bhs = ["albinson", "henri", "schweng", "zapata", "aperribay", "quiroz", "heffner", "wray", "maaze", "tobias", "becker", "bissell", "barcelos", "halpern", "austera", "rodrigues", "rodriguez", "bau"];
-var langEasy= ["english", "spanish", "hindi", "mandarin", "arabic", "swahili", "cherokee", "french", "japanese", "korean"];
-var langHard = ["aymara", "guguyimidjir", "wolof", "azerbaijani", "basque", "occitan", "inupiaq", "ainu", "liki", "nahuatl", "kyrgyz", "gagauz", "manx", "ossetian", "alutiiq", "somali", "sauraseni", "tigrinya", "lushootseed"]; // Dalmatian would be here, but it is now extinct (so instead I am "honoring" it here, I suppose). So would Piraha, but since it is written with a tilde over the last a, I decided to exclude it. Both will be missed.
+var langEasy= ["english", "spanish", "hindi", "mandarin", "arabic", "swahili", "cherokee", "french", "japanese", "korean", "portuguese"];
+var langHard = ["aymara", "guguyimidjir", "wolof", "azerbaijani", "basque", "occitan", "inupiaq", "ainu", "liki", "nahuatl", "kyrgyz", "gagauz", "manx", "ossetian", "alutiiq", "somali", "tigrinya", "lushootseed", "khmer", "sinhala", "zapotec", "quechua", "zarma", "kabyle", "tshivenda"]; // Dalmatian would be here, but it is now extinct (so instead I am "honoring" it here, I suppose). So would Piraha, but since it is written with a tilde over the last a, I decided to exclude it. Both will be missed.
 var word = defaultWord[Math.floor(Math.random() * defaultWord.length)];
 var guesses = guessNumber();
 var guessedLetters = [];
